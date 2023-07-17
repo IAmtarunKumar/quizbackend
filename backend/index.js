@@ -19,7 +19,7 @@ app.get("/", (req,res) =>{
 app.use("/api", userRouter)
 app.use("/api", quizRouter)
 
-app.listen(process.env.port, async () => {
+app.listen(process.env.port || 8080, async () => {
     try{
         await connection
         console.log("Connected to DB")
