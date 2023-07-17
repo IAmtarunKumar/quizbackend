@@ -9,7 +9,7 @@ quizRouter.get('/quizzes', async (req, res) => {
       const quizzes = await Quiz.find();
       res.json({ quizzes });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch quizzes' });
+      res.json({ error: 'Failed to fetch quizzes' });
     }
   });
 
@@ -26,9 +26,9 @@ quizRouter.get('/quizzes', async (req, res) => {
       });
   
       const savedQuiz = await newQuiz.save();
-      res.status(201).json({ quizzes: savedQuiz });
+      res.json({ quizzes: savedQuiz });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to create a new quiz' });
+      res.json({ error: 'Failed to create a new quiz' });
     }
   });
 
@@ -40,7 +40,7 @@ quizRouter.get('/quizzes', async (req, res) => {
     const quizzes = await Quiz.findById(quizId);
   
     if (!quizzes) {
-      return res.status(404).json({ error: 'Quiz not found' });
+      return res.json({ error: 'Quiz not found' });
     }
   
     const questions = quizzes.questions;
@@ -55,7 +55,7 @@ quizRouter.get('/quizzes', async (req, res) => {
     try {
       const quizzes = await Quiz.findById(quizId);
       if (!quizzes) {
-        return res.status(404).json({ error: 'Quiz not found' });
+        return res.json({ error: 'Quiz not found' });
       }
   
       const newQuestion = {
@@ -67,10 +67,10 @@ quizRouter.get('/quizzes', async (req, res) => {
       quizzes.questions.push(newQuestion);
       const updatedQuiz = await quizzes.save();
   
-      res.status(201).json({ quizzes: updatedQuiz });
+      res.json({ quizzes: updatedQuiz });
     } catch (error) {
       console.error('Error adding question:', error);
-      res.status(500).json({ error: 'Failed to add question' });
+      res.json({ error: 'Failed to add question' });
     }
   });
 
@@ -81,13 +81,13 @@ quizRouter.delete('/quizzes/:quizId', async (req, res) => {
     try {
       const deletedQuiz = await Quiz.findByIdAndDelete(quizId);
       if (!deletedQuiz) {
-        return res.status(404).json({ error: 'Quiz not found' });
+        return res.json({ error: 'Quiz not found' });
       }
   
       res.json({ success: true });
     } catch (error) {
       console.error('Error deleting quiz:', error);
-      res.status(500).json({ error: 'Failed to delete quiz' });
+      res.json({ error: 'Failed to delete quiz' });
     }
   });
 
