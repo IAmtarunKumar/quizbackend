@@ -22,9 +22,9 @@ app.use("/api", quizRouter)
 app.listen(process.env.port || 8080, async () => {
     try{
         await connection
-        console.log("Connected to DB")
+        console.log("Connected")
     } catch(err){
         console.log(err.message)
     }
-    console.log(`Server is listening at port ${process.env.port}`)
+    console.log(` ${process.env.port} port is working`)
 })
